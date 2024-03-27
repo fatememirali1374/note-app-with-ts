@@ -1,10 +1,17 @@
-import { createContext, useContext, useReducer } from "react";
+import { ReactNode, createContext, useContext, useReducer } from "react";
+import { Note } from "../types/Note";
 
-const NotesContext = createContext(null);
-const NotesDispatchContext = createContext(null)
+type Action= {type: "add"; payload: Note} |
+{type: "delete"; payload: number} |
+{type: "complete"; payload: number} 
+
+type NotesContextType= Note[]
+type NotesDispatchContextType=React.Dispatch<Action>
+const NotesContext = createContext( {} as NotesContextType);
+const NotesDispatchContext = createContext({} as NotesDispatchContextType)
 
 
-const notesReducer = (notes, { type, payload }) => {
+const notesReducer = (notes:Note[], { type, payload }:Action) => {
   switch (type) {
     case "add": {
       return [...notes, payload]
@@ -21,7 +28,7 @@ const notesReducer = (notes, { type, payload }) => {
       throw new Error("unknown Error" + type)
   }
 }
-export function NotesProvider({ children }) {
+export function NotesProvider({ children }:{children: ReactNode}) {
   const [notes, dispatch] = useReducer(notesReducer, [])
   return (
     <NotesContext.Provider value={notes}>

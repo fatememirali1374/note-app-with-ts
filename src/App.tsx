@@ -5,13 +5,14 @@ import NoteList from "./components/NoteList";
 import NoteStatus from "./components/NoteStatus";
 import NoteHeader from "./components/NoteHeader";
 import AppProviders from "./providers/AppProviders";
+import { SortBy } from "./types/SortBy";
 
 
 
 function App() {
   // const [notes, setNotes]= useState([])
 
-  const [sortBy, setSortBy] = useState("latest")
+  const [sortBy, setSortBy] = useState<SortBy>("latest")
   // const handleAddNote = (newNote) => {
   //   // setNotes(prevNotes=>[...prevNotes, newNote])
   //   dispatch({ type: "add", payload: newNote })
@@ -40,7 +41,7 @@ function App() {
     <AppProviders>
       <div className="container">
 
-        <NoteHeader sortBy={sortBy} onSort={(e) => setSortBy(e.target.value)} />
+        <NoteHeader sortBy={sortBy} onSort={(value) => setSortBy(value)} />
 
         <div className="note-app">
           <AddNewNote />

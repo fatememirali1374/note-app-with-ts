@@ -6,7 +6,7 @@ function AddNewNote() {
   const dispatch = useNotesDispatch()
   const [title, setTitle] = useState("")
   const [desc, setDesc] = useState("")
-  const handleSubmit = (e) => {
+  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!title || !desc) return;
     const newNote = {
